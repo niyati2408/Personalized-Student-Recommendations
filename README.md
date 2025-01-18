@@ -20,9 +20,9 @@ This project helps students prepare better by analyzing their quiz performance. 
 
 ## How to Get Started
 
-### What You Need:
-- Python version 3.8 or higher.
-- Install the following Python libraries:
+### Requirements:
+- Python.
+- I Installed the following Python libraries:
   - `requests`
   - `pandas`
   - `tabulate`
