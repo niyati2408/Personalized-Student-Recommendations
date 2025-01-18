@@ -1,5 +1,7 @@
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 from tabulate import tabulate
 
 quiz_endpoint = "https://www.jsonkeeper.com/b/LLQT"
@@ -49,9 +51,13 @@ merged_df['accuracy'] = merged_df.apply(
 
 recommendations = {
     "Topics to Focus On": weak_areas.index.tolist(),
-    "Practice High Difficulty Questions": difficulty_performance[difficulty_performance < 50].index.tolist(),
     "Review Incorrect Responses": merged_df[merged_df['accuracy'] < 0.5]['quiz.id'].unique().tolist(),
 }
+
+if not difficulty_performance[difficulty_performance < 50].empty:
+    recommendations["Practice High Difficulty Questions"] = difficulty_performance[difficulty_performance < 50].index.tolist()
+else:
+    recommendations["Practice High Difficulty Questions"] = []
 
 print("Recommendations:")
 print(tabulate(recommendations.items(), headers=["Category", "Recommendations"]))
@@ -73,3 +79,28 @@ persona_analysis['persona_label'] = persona_analysis['score_x'].apply(label_pers
 
 print("\nStudent Personas:")
 print(tabulate(persona_analysis, headers="keys", tablefmt="pretty"))
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=topic_performance.index, y=topic_performance.values)
+plt.title("Average Performance by Topic")
+plt.xticks(rotation=90)
+plt.xlabel("Topic")
+plt.ylabel("Average Score")
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=difficulty_performance.index, y=difficulty_performance.values)
+plt.title("Average Performance by Difficulty Level")
+plt.xlabel("Difficulty Level")
+plt.ylabel("Average Score")
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(10, 6))
+sns.histplot(merged_df['accuracy'], kde=True, bins=20)
+plt.title("Accuracy Distribution of Student")
+plt.xlabel("Accuracy")
+plt.ylabel("Frequency")
+plt.tight_layout()
+plt.show()
