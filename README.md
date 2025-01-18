@@ -78,7 +78,4 @@ This project helps students prepare better by analyzing their quiz performance. 
 |----------------------------------|-------------------------------------|-------|--------------------|
 | 7ZXdz3zHuNcdg9agb5YpaOGLQqw2 | Structural Organisation in Animals | 32.0  | Needs Improvement |
 
-## Quick Notes:
-- Ensure your internet connection is working to download the data.
-- Feel free to modify the script to add more features or work with other types of data.
 
